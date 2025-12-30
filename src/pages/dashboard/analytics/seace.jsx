@@ -300,7 +300,7 @@ const Page = () => {
                   </Breadcrumbs>
                 </Stack>
                 <Stack>
-                  <Box sx={{ display: 'flex', gap: 6 }}>
+                  <Box sx={{ display: 'flex', gap: 4 }}>
                     <Box sx={{ textAlign: 'right' }}>
                       <Box sx={{ fontSize: '24px', fontWeight: 'bold' }}>{total || 0}</Box>
                       <Box sx={{ fontSize: '0.75rem', color: 'gray' }}>Convocatorias totales</Box>
@@ -311,7 +311,7 @@ const Page = () => {
                       </Box>
                       <Box sx={{ fontSize: '0.75rem', color: 'gray' }}>Vigentes filtradas</Box>
                     </Box>
-                    <Box sx={{ textAlign: 'right' }}>
+                    <Box sx={{ textAlign: 'right', display: { xs: 'none', sm: 'block' } }}>
                       <Box sx={{ fontSize: '24px', fontWeight: 'bold', color: 'orange' }}>
                         {total - rowCount || 0}
                       </Box>
@@ -327,91 +327,126 @@ const Page = () => {
                 mt={1}
               >
                 {/* Búsqueda principal */}
-                <Box sx={{ display: 'flex', gap: 3 }}>
-                  {/* Input de búsqueda */}
-                  <Box sx={{ flex: 1 }}>
-                    <TextField
-                      fullWidth
-                      placeholder="Buscar (nomenclatura, entidad o descripción...)"
-                      value={selectedParams.q}
-                      onChange={(e) => setSelectedParams((p) => ({ ...p, q: e.target.value }))}
-                      variant="outlined"
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <Search
-                              size={20}
-                              className="text-gray-500"
-                            />
-                          </InputAdornment>
-                        ),
-                        endAdornment: selectedParams.q && (
-                          <InputAdornment position="end">
-                            <IconButton
-                              onClick={handleClear}
-                              edge="end"
-                              size="small"
-                              sx={{
-                                color: '#6b7280',
-                                '&:hover': {
-                                  color: '#9ca3af',
-                                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                                },
-                              }}
-                            >
-                              <Close />
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                      sx={{
-                        '& .MuiOutlinedInput-root': {
-                          borderRadius: 2,
-                          paddingY: 0.5,
-                        },
-                      }}
-                    />
-                  </Box>
-
-                  {/* Botón Filtros */}
-                  <Button
-                    onClick={() => setShowFilters(!showFilters)}
-                    variant="outlined"
-                    startIcon={<FilterAlt size={20} />}
-                    endIcon={
-                      <ChevronDown
-                        size={18}
-                        style={{
-                          transition: 'transform 150ms ease',
-                          transform: showFilters ? 'rotate(180deg)' : 'rotate(0deg)',
-                        }}
-                      />
-                    }
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 1,
-                      px: 3,
-                      py: 1.5,
-                      borderRadius: 2,
-                      textTransform: 'none',
-                    }}
+                <Box>
+                  <Grid
+                    container
+                    spacing={2}
+                    alignItems="center"
                   >
-                    Filtros
-                  </Button>
-
-                  <Tooltip title="Restablecer filtros">
-                    <span>
-                      {/* span para que Tooltip funcione aunque esté disabled */}
-                      <IconButton
-                        onClick={resetFilters}
-                        size="large"
-                        disabled={resetting || loading}
+                    <Grid
+                      item
+                      size={{
+                        xs: 12,
+                        sm: 12,
+                        md: 8,
+                        lg: 9,
+                      }}
+                    >
+                      {/* Input de búsqueda */}
+                      <Box sx={{ flex: 1 }}>
+                        <TextField
+                          fullWidth
+                          placeholder="Buscar (nomenclatura, entidad o descripción...)"
+                          value={selectedParams.q}
+                          onChange={(e) => setSelectedParams((p) => ({ ...p, q: e.target.value }))}
+                          variant="outlined"
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                <Search
+                                  size={20}
+                                  className="text-gray-500"
+                                />
+                              </InputAdornment>
+                            ),
+                            endAdornment: selectedParams.q && (
+                              <InputAdornment position="end">
+                                <IconButton
+                                  onClick={handleClear}
+                                  edge="end"
+                                  size="small"
+                                  sx={{
+                                    color: '#6b7280',
+                                    '&:hover': {
+                                      color: '#9ca3af',
+                                      backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                    },
+                                  }}
+                                >
+                                  <Close />
+                                </IconButton>
+                              </InputAdornment>
+                            ),
+                          }}
+                          sx={{
+                            '& .MuiOutlinedInput-root': {
+                              borderRadius: 2,
+                              paddingY: 0.5,
+                            },
+                          }}
+                        />
+                      </Box>
+                    </Grid>
+                    <Grid
+                      item
+                      size={{
+                        xs: 9,
+                        sm: 10,
+                        md: 3,
+                        lg: 2,
+                      }}
+                    >
+                      {/* Botón Filtros */}
+                      <Button
+                        fullWidth
+                        onClick={() => setShowFilters(!showFilters)}
+                        variant="outlined"
+                        startIcon={<FilterAlt size={20} />}
+                        endIcon={
+                          <ChevronDown
+                            size={18}
+                            style={{
+                              transition: 'transform 150ms ease',
+                              transform: showFilters ? 'rotate(180deg)' : 'rotate(0deg)',
+                            }}
+                          />
+                        }
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 1,
+                          px: 3,
+                          py: 1.5,
+                          borderRadius: 2,
+                          textTransform: 'none',
+                        }}
                       >
-                        <RestoreIcon fontSize="large" />
-                      </IconButton>
-                    </span>
-                  </Tooltip>
+                        Filtros
+                      </Button>
+                    </Grid>
+                    <Grid
+                      item
+                      size={{
+                        xs: 3,
+                        sm: 2,
+                        md: 1,
+                        lg: 1,
+                      }}
+                    >
+                      <Tooltip title="Restablecer filtros">
+                        <span>
+                          {/* span para que Tooltip funcione aunque esté disabled */}
+                          <IconButton
+                            onClick={resetFilters}
+                            size="large"
+                            disabled={resetting || loading}
+                          >
+                            <RestoreIcon fontSize="large" />
+                          </IconButton>
+                        </span>
+                      </Tooltip>
+                    </Grid>
+                  </Grid>
                 </Box>
 
                 {/* Panel de filtros expandible */}
