@@ -31,7 +31,7 @@ import { createFilterOptions } from '@mui/material/Autocomplete';
 import { reportApi } from 'src/api/reports/fmv/reportService';
 import { RouterLink } from 'src/components/router-link';
 import { BreadcrumbsSeparator } from 'src/components/breadcrumbs-separator';
-import { FilterAlt, Search } from '@mui/icons-material';
+import { Close, FilterAlt, Search } from '@mui/icons-material';
 import { ChevronDown } from '@untitled-ui/icons-react';
 import RestoreIcon from '@mui/icons-material/Restore';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -69,6 +69,10 @@ const Page = () => {
       ruc: '',
     };
   });
+
+  const handleClear = () => {
+    setSelectedParams((p) => ({ ...p, ruc: '' }));
+  };
 
   const fetchFacetsOnce = async ({ estado, departamento }) => {
     const reqId = ++facetsReqIdRef.current;
@@ -324,6 +328,24 @@ const Page = () => {
                               size={20}
                               sx={{ color: 'gray' }}
                             />
+                          </InputAdornment>
+                        ),
+                        endAdornment: selectedParams.ruc && (
+                          <InputAdornment position="end">
+                            <IconButton
+                              onClick={handleClear}
+                              edge="end"
+                              size="small"
+                              sx={{
+                                color: '#6b7280',
+                                '&:hover': {
+                                  color: '#9ca3af',
+                                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                },
+                              }}
+                            >
+                              <Close />
+                            </IconButton>
                           </InputAdornment>
                         ),
                       }}

@@ -37,7 +37,7 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import { es } from 'date-fns/locale';
 import { startOfDay, addDays } from 'date-fns';
 import { fromZonedTime } from 'date-fns-tz';
-import { Filter, FilterAlt, Search } from '@mui/icons-material';
+import { Close, Filter, FilterAlt, Search } from '@mui/icons-material';
 import { ChevronDown } from '@untitled-ui/icons-react';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
@@ -80,6 +80,10 @@ const Page = () => {
       q: '',
     };
   });
+
+  const handleClear = () => {
+    setSelectedParams((p) => ({ ...p, q: '' }));
+  };
 
   const fetchFacetsOnce = async ({ fromDate, toDate, departamento }) => {
     const reqId = ++facetsReqIdRef.current;
@@ -339,6 +343,24 @@ const Page = () => {
                               size={20}
                               className="text-gray-500"
                             />
+                          </InputAdornment>
+                        ),
+                        endAdornment: selectedParams.q && (
+                          <InputAdornment position="end">
+                            <IconButton
+                              onClick={handleClear}
+                              edge="end"
+                              size="small"
+                              sx={{
+                                color: '#6b7280',
+                                '&:hover': {
+                                  color: '#9ca3af',
+                                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                },
+                              }}
+                            >
+                              <Close />
+                            </IconButton>
                           </InputAdornment>
                         ),
                       }}

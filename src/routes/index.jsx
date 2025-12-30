@@ -13,11 +13,7 @@ const Error401Page = lazy(() => import('src/pages/401'));
 const Error404Page = lazy(() => import('src/pages/404'));
 const Error500Page = lazy(() => import('src/pages/500'));
 
-// const HomePage = lazy(() => import('src/pages/index'));
 const HomePage = lazy(() => import('src/pages/index'));
-const ContactPage = lazy(() => import('src/pages/contact'));
-const CheckoutPage = lazy(() => import('src/pages/checkout'));
-// const PricingPage = lazy(() => import('src/pages/pricing'));
 
 export const routes = [
   {
@@ -35,14 +31,6 @@ export const routes = [
   },
   ...authRoutes,
   ...dashboardRoutes,
-  {
-    path: 'checkout',
-    element: <CheckoutPage />,
-  },
-  {
-    path: 'contact',
-    element: <ContactPage />,
-  },
   {
     path: '401',
     element: <Error401Page />,
