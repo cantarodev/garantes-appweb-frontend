@@ -214,6 +214,14 @@ const Page = () => {
     selectedParams.q,
   ]);
 
+  const normalize = (str = '') =>
+    str
+      .toString()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .trim();
+
   const filterOptions = createFilterOptions({
     stringify: (option) => normalize(option?.value || ''),
     trim: true,

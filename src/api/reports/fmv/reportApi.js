@@ -66,9 +66,16 @@ export const downloadEntidadesExcel = async (
     throw new Error(msg);
   }
 
+  const pad = (n) => String(n).padStart(2, '0');
+
+  const now = new Date();
+  const stamp =
+    `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}` +
+    `_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`;
+
   const dispo = resp.headers['content-disposition'] || '';
   const match = dispo.match(/filename="([^"]+)"/);
-const filename = match?.[1] || `entidades_${new Date().toISOString().slice(0, 19).replace(/:/g, '-').replace('T', '_')}.xlsx`;
+  const filename = match?.[1] || `entidades_${stamp}.xlsx`;
 
 
   const url = URL.createObjectURL(new Blob([resp.data]));
